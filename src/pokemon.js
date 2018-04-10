@@ -1,9 +1,13 @@
+let pokedex = []
+
 class Pokemon {
   constructor(name, frontImage, backImage, id) {
     this.name = name
     this.frontImage = frontImage
     this.backImage = backImage
     this.id = id
+    pokedex.push(this)
+    
   }
 
   render() {
