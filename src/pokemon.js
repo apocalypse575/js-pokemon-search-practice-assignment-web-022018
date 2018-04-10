@@ -10,14 +10,13 @@ class Pokemon {
   }
 
   render(image) {
-    let pokemonHTML =  `
-            <div id = "${this.id}">
-              <h2> ${this.name} </h2>
-                <img class = "image" src="${image}"/>
-                <a href="#" id = ${this.name}> flip card </a>
-            </div>`
-
-    return pokemonHTML
+    return `<div id = "${this.id}">` + this.renderGuts(image) + `</div>`
   }
 
+  renderGuts(image){
+    return `
+      <h2> ${this.name} </h2>
+      <img class = "image" src="${image}"/>
+      <a href="#" id = ${this.name}> flip card </a>`
+  }
 }

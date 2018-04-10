@@ -6,18 +6,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let pokemonInput = document.getElementById('pokemon-search-input')
   let pokemonContainer = document.getElementById('pokemon-container')
-  let searchterm = ""
   let flipCards = document.getElementsByTagName('a')
 
   function findPokemon(e) {
 
-    if (e.key === "Backspace"){
-      searchterm = searchterm.slice(0,-1)
-    } else if (e.key.length > 1) {
+    let searchterm = pokemonInput.value
 
-    }else if (/[A-Za-z]/.test(e.key)) {
-      searchterm += e.key
-    }
+    // if (e.key === "Backspace"){
+    //   searchterm = searchterm.slice(0,-1)
+    // } else if (e.key.length > 1) {
+    //
+    // }else if (/[A-Za-z]/.test(e.key)) {
+    //   searchterm += e.key
+    // }
 
     let filteredpokemon = pokedex.filter(function(pokemon) {return pokemon.name.includes(searchterm.toLowerCase())})
     let renderedpokemon = filteredpokemon.map(pokemon => pokemon.render(pokemon.frontImage)).join('')
@@ -27,14 +28,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function flipCard(e){
     e.preventDefault()
-    let parentPokemonElement = document.getElementById(`${e.target.parentElement.id}`)
-    if (e.target.tagName ==="A"){
-      let foundPokemon = pokedex.find((poke) => (poke.name === e.target.id))
+    let target = e.target
+    let parentPokemonElement = document.getElementById(`${target.parentElement.id}`)
+    if (target.tagName ==="A"){
+      let foundPokemon = pokedex.find((poke) => (poke.name === target.id))
       if (parentPokemonElement.getElementsByClassName("image")[0].src === foundPokemon.frontImage){
-        parentPokemonElement.innerHTML = foundPokemon.render(foundPokemon.backImage)
+        parentPokemonElement.innerHTML = foundPokemon.renderGuts(foundPokemon.backImage)
       }
       else{
-        parentPokemonElement.innerHTML = foundPokemon.render(foundPokemon.frontImage)
+        parentPokemonElement.innerHTML = foundPokemon.renderGuts(foundPokemon.frontImage)
       }
     }
   }
