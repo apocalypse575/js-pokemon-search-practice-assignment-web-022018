@@ -7,15 +7,17 @@ class Pokemon {
     this.backImage = backImage
     this.id = id
     pokedex.push(this)
-    
   }
 
-  render() {
-    return `
-            <li>
+  render(image) {
+    let pokemonHTML =  `
+            <div id = "${this.id}">
               <h2> ${this.name} </h2>
-                <img src="${this.frontImage}"/>
-            </li>`
+                <img class = "image" src="${image}"/>
+                <a href="#" id = ${this.name}> flip card </a>
+            </div>`
+
+    return pokemonHTML
   }
 
 }

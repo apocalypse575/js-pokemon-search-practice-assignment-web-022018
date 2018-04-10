@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
   let pokemonInput = document.getElementById('pokemon-search-input')
   let pokemonContainer = document.getElementById('pokemon-container')
   let searchterm = ""
+  let flipCards = document.getElementsByTagName('a')
 
   function findPokemon(e) {
 
@@ -19,11 +20,26 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     let filteredpokemon = pokedex.filter(function(pokemon) {return pokemon.name.includes(searchterm.toLowerCase())})
-    let renderedpokemon = filteredpokemon.map(pokemon => pokemon.render()).join('')
+    let renderedpokemon = filteredpokemon.map(pokemon => pokemon.render(pokemon.frontImage)).join('')
 
     pokemonContainer.innerHTML = renderedpokemon
   }
 
+  function flipCard(e){
+    e.preventDefault()
+    let parentPokemonElement = document.getElementById(`${e.target.parentElement.id}`)
+    if (e.target.tagName ==="A"){
+      let foundPokemon = pokedex.find((poke) => (poke.name === e.target.id))
+      if (parentPokemonElement.getElementsByClassName("image")[0].src === foundPokemon.frontImage){
+        parentPokemonElement.innerHTML = foundPokemon.render(foundPokemon.backImage)
+      }
+      else{
+        parentPokemonElement.innerHTML = foundPokemon.render(foundPokemon.frontImage)
+      }
+    }
+  }
+
   pokemonInput.addEventListener('keydown', findPokemon)
+  pokemonContainer.addEventListener('click', flipCard)
 
 })
